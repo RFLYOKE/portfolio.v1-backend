@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('job');
+            $table->string('date');
+            $table->json('contents');
             $table->timestamps();
         });
     }

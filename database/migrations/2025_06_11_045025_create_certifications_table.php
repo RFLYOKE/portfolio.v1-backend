@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('certifications', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('img');
             $table->timestamps();
         });
     }
