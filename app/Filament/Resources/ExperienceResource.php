@@ -32,21 +32,19 @@ class ExperienceResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                Forms\Components\DatePicker::make('date')
+                Forms\Components\DatePicker::make('Start date')
                     ->required(),
+                Forms\Components\DatePicker::make('End date'),
 
                 Forms\Components\Repeater::make('contents')
-                    ->label('Responsibilities')
-                    ->schema([
-                        Forms\Components\Textarea::make('content')
-                            ->required()
-                            ->rows(2)
-                    ])
-                    ->defaultItems(1)
-                    ->minItems(1)
-                    ->columns(1)
-                    ->createItemButtonLabel('Add Responsibility')
-                    ->cloneable(),
+                ->label('Experience Details')
+                ->schema([
+                    Forms\Components\Textarea::make('value')->label('Description'),
+                ])
+                ->addable()
+                ->deletable()
+                ->reorderable()
+                ->default([])
             ]);
     }
 
@@ -61,7 +59,10 @@ class ExperienceResource extends Resource
                 Tables\Columns\TextColumn::make('job')
                     ->label('Job'),
 
-                Tables\Columns\TextColumn::make('date'),
+                Tables\Columns\TextColumn::make('start_date')
+                    ->label('Start Date'),
+                Tables\Columns\TextColumn::make('end_date')
+                    ->label('End Date'),
             ])
             ->filters([
                 

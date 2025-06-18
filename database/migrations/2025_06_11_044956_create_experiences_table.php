@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->string('job');
-            $table->string('date');
+            $table->string('start_date');
+            $table->string('end_date');
             $table->json('contents');
             $table->timestamps();
         });

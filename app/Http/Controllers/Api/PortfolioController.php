@@ -17,7 +17,8 @@ class PortfolioController extends Controller
             'projects.tags',
             'socials',
             'experiences',
-        ])->first(); // Asumsikan single user (portfolio pribadi)
+            'certifications',
+        ])->first(); 
 
         return response()->json([
             'myProjects' => $user->projects->map(function ($project) {
@@ -44,10 +45,14 @@ class PortfolioController extends Controller
             'experiences' => $user->experiences->map(fn ($e) => [
                 'title' => $e->title,
                 'job' => $e->job,
-                'date' => $e->date,
-                'contents' => $e->description, // diasumsikan description = array
+                'start_date' => $e->start_date, 
+                'end_date' => $e->end_date,
+                'contents' => $e->contents,
             ]),
-            'certifications' => [], // kamu bisa buat model/table `certifications` juga
+            'certifications' => $user->certifications->map(fn ($c) => [
+                'title' => $c->title,
+                'img' => $c->img,
+            ]),
         ]);
     }
 

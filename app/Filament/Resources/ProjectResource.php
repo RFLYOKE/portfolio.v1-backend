@@ -34,14 +34,17 @@ class ProjectResource extends Resource
                 Forms\Components\Repeater::make('sub_description')
                     ->label('Sub Description')
                     ->schema([
-                        Forms\Components\Textarea::make('text')
+                        Forms\Components\Textarea::make('value') 
+                            ->label('Point')
                             ->required()
-                            ->label('Point'),
+                            ->rows(2),
                     ])
                     ->defaultItems(1)
                     ->minItems(1)
                     ->columns(1)
-                    ->cloneable(),
+                    ->cloneable()
+                    ->dehydrated() 
+                    ->mutateDehydratedStateUsing(fn ($state) => collect($state)->pluck('value')->toArray()),
 
                 Forms\Components\TextInput::make('href')
                     ->label('Project Link')

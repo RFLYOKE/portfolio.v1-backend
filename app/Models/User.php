@@ -51,7 +51,7 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
-    public function certifications()
+    public function socials()
     {
         return $this->hasMany(Social::class);
     }
@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Experience::class);
     }
+    
+    public function certifications()
+    {
+        return $this->hasMany(Certification::class);
+    }    
 }

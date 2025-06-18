@@ -47,7 +47,6 @@ class CertificationResource extends Resource
 
                 Tables\Columns\ImageColumn::make('img')
                     ->label('Certificate Image')
-                    ->circular()
                     ->height(60),
             ])
             ->filters([
