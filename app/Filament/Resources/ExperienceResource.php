@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ExperienceResource\Pages;
-use App\Filament\Resources\ExperienceResource\RelationManagers;
 use App\Models\Experience;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,19 +10,43 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ExperienceResource extends Resource
 {
     protected static ?string $model = Experience::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+    protected static ?string $navigationLabel = 'Experiences';
+    protected static ?string $pluralModelLabel = 'Experiences';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('job')
+                    ->label('Job Description')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\DatePicker::make('date')
+                    ->required(),
+
+                Forms\Components\Repeater::make('contents')
+                    ->label('Responsibilities')
+                    ->schema([
+                        Forms\Components\Textarea::make('content')
+                            ->required()
+                            ->rows(2)
+                    ])
+                    ->defaultItems(1)
+                    ->minItems(1)
+                    ->columns(1)
+                    ->createItemButtonLabel('Add Responsibility')
+                    ->cloneable(),
             ]);
     }
 
@@ -31,10 +54,17 @@ class ExperienceResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('job')
+                    ->label('Job'),
+
+                Tables\Columns\TextColumn::make('date'),
             ])
             ->filters([
-                //
+                
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -48,9 +78,7 @@ class ExperienceResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

@@ -10,6 +10,15 @@ class Project extends Model
         'sub_description' => 'array',
     ];
     
+    protected $fillable = [
+        'title',
+        'description',
+        'sub_description',
+        'href',
+        'logo',
+        'image',
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class);
