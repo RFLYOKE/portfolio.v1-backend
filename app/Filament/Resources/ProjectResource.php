@@ -44,18 +44,20 @@ class ProjectResource extends Resource
                     ->columns(1)
                     ->cloneable()
                     ->dehydrated() 
-                    ->mutateDehydratedStateUsing(fn ($state) => collect($state)->pluck('value')->toArray()),
+                    ->mutateDehydratedStateUsing(fn ($state) => collect($state)->pluck('value')->toArray())
+                    ->afterStateHydrated(function (Forms\Components\Repeater $component, $state) {
+                        $component->state(
+                            collect($state)->map(fn ($item) => ['value' => $item])->toArray()
+                        );
+                    }),
 
                 Forms\Components\TextInput::make('href')
                     ->label('Project Link')
                     ->url()
                     ->nullable(),
 
-                Forms\Components\TextInput::make('logo')
-                    ->nullable(),
-
-                Forms\Components\TextInput::make('image')
-                    ->label('Image Path')
+                Forms\Components\FileUpload::make('image')
+                    ->label('Project Image')
                     ->required(),
 
                 Forms\Components\MultiSelect::make('tags')
@@ -75,6 +77,7 @@ class ProjectResource extends Resource
                     ->label('Tags')
                     ->badge()
                     ->separator(', '),
+                Tables\Columns\ImageColumn::make('image')->label('Project Image')->height(60),
             ])
             ->filters([])
             ->actions([

@@ -9,7 +9,7 @@ class Social extends Model
     protected $fillable = [
         'name',
         'icon',
-        'url',
+        'href',
     ];
     public function user()
     {

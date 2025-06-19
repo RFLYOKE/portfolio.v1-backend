@@ -18,8 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->json('sub_description');
             $table->string('href')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('image');
+            $table->text('image');
             $table->timestamps();
         });        
     }

@@ -46,6 +46,9 @@ class TagResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('Tag'),
+                Tables\Columns\ImageColumn::make('path')
+                    ->label('Tag Icon')
+                    ->height(60),
             ])
             ->filters([])
             ->actions([

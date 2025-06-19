@@ -26,9 +26,8 @@ class PortfolioController extends Controller
                     'id' => $project->id,
                     'title' => $project->title,
                     'description' => $project->description,
-                    'subDescription' => $project->sub_description,
+                    'sub_description' => $project->sub_description,
                     'href' => $project->href,
-                    'logo' => $project->logo,
                     'image' => $project->image,
                     'tags' => $project->tags->map(fn ($tag) => [
                         'id' => $tag->id,
