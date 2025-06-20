@@ -18,6 +18,7 @@ class PortfolioController extends Controller
             'socials',
             'experiences',
             'certifications',
+            'tags',
         ])->first(); 
 
         return response()->json([
@@ -51,6 +52,11 @@ class PortfolioController extends Controller
             'certifications' => $user->certifications->map(fn ($c) => [
                 'title' => $c->title,
                 'img' => $c->img,
+            ]),
+            'tags' => $user->tags->map(fn ($tag) => [
+                'id' => $tag->id,
+                'name' => $tag->name,
+                'path' => $tag->path,
             ]),
         ]);
     }
