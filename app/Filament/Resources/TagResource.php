@@ -30,7 +30,7 @@ class TagResource extends Resource
             Forms\Components\FileUpload::make('path')
                 ->label('Tag Icon')
                 ->image()
-                ->directory('tag-icons') // folder penyimpanan: storage/app/public/tag-icons
+                ->directory('tag-icons')
                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/svg+xml'])
                 ->maxSize(1024) // Maks 1MB
                 ->helperText('Upload ikon tag (SVG, PNG, atau JPG)')
@@ -53,6 +53,7 @@ class TagResource extends Resource
             ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

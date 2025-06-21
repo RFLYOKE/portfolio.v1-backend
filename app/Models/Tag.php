@@ -19,4 +19,13 @@ class Tag extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    protected static function booted(): void
+    {
+        static::created(function ($tag) {
+            $user = User::find(1);
+            if ($user) {
+                $user->tags()->attach($tag->id);
+            }
+        });
+    }
 }
